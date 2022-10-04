@@ -1,40 +1,138 @@
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Collections;
 
 public class Cities {
 	private Integer adyacency[][], routes[][], original[][], originalRoutes[][];
-	private ArrayList<String> cities;
+	private ArrayList<String> cities = new ArrayList<>();
 	private final static int INF = 9999, nV = 32;
-	public ArrayList<String> getCities() {
-		return cities;
-	}
-	public Integer[][] getOriginal() {
-		return original;
-	}
 	/**
 	 * Es la clase constructora de ciudadess
 	 * @param adyacency
 	 * @param ciudades
 	 * @param ruta
 	 */
-	public Cities(Integer [][] adyacency, ArrayList<String> ciudades, Integer[][] ruta){
-		cities = ciudades;
-		this.original = adyacency;
-		this.originalRoutes = ruta;
-		this.routes = ruta;
-		this.adyacency=adyacency;
+	public Cities(){
+		String texto = readDB();
+		loadCities(texto);
+		loadWays(texto);
+		loadRoutes();
 		floydWarshall();
-//		for (int k = 0 ; k < cities.size(); k++) {
-//			System.out.print(cities.get(k));
-//		}
-//		System.out.print("\n");
 	}
+	/**
+	 * Es para leer la base de datos
+	 * @return
+	 */
+	private String readDB(){ 
+        String texto = "";
+        try{
+            BufferedReader bf = new BufferedReader(new FileReader("C:\\Users\\Windows 10\\Documents\\UVG\\CODING\\Semestre 4\\POO\\Proyectos\\Proyecto2\\Others\\Rutas2.txt"));
+            String temp = "";
+            String bfRead;
+            while((bfRead = bf.readLine()) != null){ 
+                temp = temp + bfRead+"\n"; 
+            }
+
+            bf.close();
+            texto = temp;
+            
+        }catch(Exception e){ 
+        }
+        return texto;
+       
+    }
+	/**
+	 * Es para cargar los caminos
+	 * @param texto
+	 */
+	private void loadWays(String texto){
+		this.adyacency = new Integer[this.cities.size()][this.cities.size()];
+			for(int i=0;i<this.adyacency.length;i++) 
+			{
+				this.adyacency[i][i]=0;
+			}
+			int contador=0;
+			int l=0;
+			int j=0;
+			String ciudad="";
+			for ( int i = 0 ; i < texto.length() ; i++ ) {
+				if ( Character.isAlphabetic((texto.charAt(i))) || (Character.isDigit((texto.charAt(i)))) || ((String.valueOf(texto.charAt(i))).equals("-")) ) {
+					ciudad = ciudad + texto.charAt(i) ;// Le suma los caracteres a la palabra -> A->An->Ant->Anti->Antig->Antigu->Antigua
+				}
+				else if ( !Character.isAlphabetic((texto.charAt(i))) ) 
+				{
+					if ( contador == 0 ) {	// En caso de que el contador sea 0
+						l = this.cities.indexOf(ciudad); // Se obtiene el index de la ciudad
+						contador++ ;	// Le suma 1 al contador
+						ciudad = "" ;	// Reset de ciudad
+					}
+					else if( contador == 1 ) {	// Si el contador es 1
+						j=this.cities.indexOf(ciudad);	// j es el index de la ciudad 1
+						contador++;	// Se suma 1 al contador
+						ciudad="";	// Reset de ciudad
+					}
+					else if(contador==2) {
+						this.adyacency[l][j]= Integer.parseInt(ciudad);
+						this.adyacency[j][l]= Integer.parseInt(ciudad);
+						ciudad="";
+						contador=0;
+						l=0;
+						j=0;
+					}		
+				}
+			}
+			for(int i=0;i<this.adyacency.length;i++) {
+				for ( int k = 0 ; k < this.adyacency.length ; k ++ ) {
+					if ( this.adyacency [k][i] == null ) 
+					{
+						this.adyacency[k][i] = 1000000000 ;
+					}
+				}
+			}
+		}
+		/**
+		 * Es para cargar las rutas en la matriz de ruta
+		 */
+		private void loadRoutes(){
+			this.routes = new Integer[this.cities.size()][this.cities.size()];
+			for ( int i = 0 ; i < this.cities.size(); i++ ) {
+				for (int k = 0 ; k < this.cities.size() ; k++ ) {
+					this.routes[k][i] = i ; // It fills with i all the column
+					if ( k == i) {
+						this.routes [k][i] = 0 ; //matriz[fila][columna]
+					}
+				}
+			}
+		}
+		/**
+		 * Es para almacenar los nodos o ciudades disponibles
+		 * @param texto
+		 */
+		private void loadCities(String texto){
+			String ciudad = "";
+			for(int i=0;i<texto.length();i++) {
+				if(Character.isAlphabetic((texto.charAt(i)))||((String.valueOf(texto.charAt(i))).equals("-"))) {
+					ciudad=ciudad+texto.charAt(i);
+				}
+				else if(!Character.isAlphabetic((texto.charAt(i)))) {
+					if(!(Character.isDigit((texto.charAt(i))))) {
+						if(!((String.valueOf(texto.charAt(i))).equals("\n"))) {
+							if(this.cities==null || !(this.cities.contains(ciudad))) {	
+								this.cities.add(ciudad);
+							}
+							ciudad="";
+						}
+					}
+				}
+			}
+		}
 	/**
 	 * Es el metodo para generar el algoritmo floydWarshall y que quede asi la matriz
 	 * Se obtuvo de https://www.programiz.com/dsa/floyd-warshall-algorithm
 	 */
-	public void floydWarshall() {	    
+	private void floydWarshall() {	    
 	    // Adding vertices individually
 	    for (int k = 0; k < nV; k++) {
 	      for (int i = 0; i < nV; i++) {
@@ -46,8 +144,6 @@ public class Cities {
 	        }
 	      }
 	    }
-//	    printMatrix(this.adyacency) ;
-//	    printMatrix(this.routes) ;
 	  }
 	/**
 	 * Es la clase para imprimir matrices, sirvio como debugger
@@ -77,11 +173,15 @@ public class Cities {
 	    	}
 	    	return null;
 	    }
+		/**
+		 * Es para cambiar el estado de la ruta
+		 * @param city1
+		 * @param city2
+		 * @param espera
+		 */
 	  public void changeRouteStatus(String city1, String city2, Integer espera) {
 		  Integer id1 = getCity(city1);
-//		  System.out.print(id1);
 		  Integer id2 = getCity(city2);
-//		  System.out.print(id2);
 		  if ( id1 != null && id2 != null && espera != null ) {	// En el caso de que se tenga que no hay interrupcion de trafico
 			  this.adyacency[id1][id2] = espera ;
 			  this.adyacency[id2][id1] = espera ;
@@ -98,8 +198,7 @@ public class Cities {
 		  
 	  }
 	  /**
-	   * Es el metodo para obtener la ciudad que esta en el centro del grafo
-	   * 
+	   * Es el metodo para obtener la ciudad que esta en el centro del grafo o del nodo central
 	   * @return String
 	   */
 	  public String getCenter() {
@@ -125,9 +224,9 @@ public class Cities {
 	   * @param city1
 	   * @param city2
 	   */
-	  public void printRoute(String city1, String city2) {
+	  public String getRoute(String city1, String city2) {
 		  if (city1.equals(city2)) {
-			  System.out.print(city1+"->"+city2+"->"+0+"\n");
+			  return (city1+"->"+city2+"->"+0+"\n");
 		  }
 		  else if (getCity(city1)!=null && getCity(city2)!=null){
 			  ArrayList<String>  ruta = new ArrayList<>() ;
@@ -142,11 +241,24 @@ public class Cities {
 			  }
 			  ruta.add(city1) ;
 			  for (int k = ruta.size()-1  ; k >= 0 ; k -- ) {
-				  System.out.print( ruta.get(k) + "->" );
+				  return( ruta.get(k) + "->" );
 			  }
-			  System.out.print(this.adyacency[id1][id2]+"\n");
+			  return(this.adyacency[id1][id2]+"\n");
 		  }else {
-			  System.out.print("Alguna de las ciudades ingresadas no existe\n");
+			  return("Alguna de las ciudades ingresadas no existe\n");
 		  }
 	  }
+	/**
+	 * Es para obtener la lista de ciudades
+	 */
+	  public ArrayList<String> getCities() {
+		return cities;
+	}
+	/**
+	 * Es para retornar la matriz original
+	 * @return
+	 */
+	public Integer[][] getOriginal() {
+		return original;
+	}
 }
