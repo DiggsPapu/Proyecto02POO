@@ -198,13 +198,13 @@ public class Cities {
 		  Integer id1 = getCity(city1);
 		  Integer id2 = getCity(city2);
 		  if ( id1 != null && id2 != null && espera != null ) {	// En el caso de que se tenga que no hay interrupcion de trafico
-			  this.adyacency[id1][id2] = espera ;
-			  this.adyacency[id2][id1] = espera ;
+			  getAdyacency()[id1][id2] = espera ;
+			  getAdyacency()[id2][id1] = espera ;
 			  floydWarshall();
 		  }
 		  else if ( id1 != null && id2 != null && espera == null  ) {
-			  this.getAdyacency()[id1][id2] = 1000000000 ;
-			  this.adyacency[id2][id1] = 1000000000 ; // Infinito entre ellos
+			  getAdyacency()[id1][id2] = 1000000000 ;
+			  getAdyacency()[id2][id1] = 1000000000 ; // Infinito entre ellos
 			  floydWarshall();
 		  }
 		  else {
@@ -222,7 +222,7 @@ public class Cities {
 		  for ( int k = 0 ; k < this.cities.size() ; k++ ) {
 			  ArrayList<Integer> valores = new ArrayList<>();
 			  for ( int i = 0 ; i < this.cities.size() ; i++ ) {
-				  valores.add(this.adyacency[i][k]) ; //Se add cada valor de la columna
+				  valores.add(getAdyacency()[i][k]) ; //Se add cada valor de la columna
 			  }
 			  maxValue.add(Collections.max(valores)) ; // Se add el value max de la columna
 			  maxId.add(valores.indexOf(Collections.max(valores))) ;
@@ -258,7 +258,7 @@ public class Cities {
 			for (int k = ruta.size()-1  ; k >= 0 ; k -- ) {
 				System.out.print( ruta.get(k) + "->" );
 			}
-			  return(this.adyacency[id1][id2]+"\n");
+			  return(getAdyacency()[id1][id2]+"\n");
 		  }else {
 			  return("Alguna de las ciudades ingresadas no existe\n");
 		  }
