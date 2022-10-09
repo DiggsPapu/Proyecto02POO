@@ -160,23 +160,7 @@ public class Cities {
 	      }
 	    }
 	  }
-	/**
-	 * Es la clase para imprimir matrices, sirvio como debugger
-	 * Esta clase se obtuvo de https://www.programiz.com/dsa/floyd-warshall-algorithm
-	 * @param matrix
-	 */
-	  public void printMatrix(Integer matrix[][]) {
-	    for (int i = 0; i < nV; ++i) {
-	      for (int j = 0; j < nV; ++j) {
-	        if (matrix[i][j] == INF)
-	          System.out.print("INF ");
-	        else
-	          System.out.print(matrix[i][j] + "  ");
-	      }
-	      System.out.println();
-	    }
-	    
-	  }
+	
 	  /**
 	   * Es la clase para obtener el id de la ciudad
 	   * @param city

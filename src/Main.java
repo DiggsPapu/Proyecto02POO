@@ -20,8 +20,7 @@ public class Main {
 		Scanner teclado = new Scanner(System.in);
 		Cities citi = new Cities();
 		while (true) {
-			System.out.print("Seleccione una opcion:\n1-Buscar la ruta mas corta entre ciudades\n2-Ciudad mas centralizada\n3-Actualizar la conexion entre dos ciudades\n4-Indicar si hay interrupcion entre ciudades\n5-Salir\n") ;
-			String opcion = teclado.nextLine() ;
+			String opcion = View.getOption();
 			if (opcion.equals("1")) {
 				System.out.print("Ingrese la ciudad 1: ");
 				String ciudad1 = teclado.nextLine() ;
@@ -53,7 +52,7 @@ public class Main {
 				System.out.print("Gracias por usar nuestro programa\n") ;
 				break ;
 			}else if (opcion.equals("6")){
-				citi.printMatrix(citi.getOriginal());
+				View.printMatrix(citi.getOriginal());
 			}
 			else if (opcion.equals("7")){
 				for (int k = 0 ; k < citi.getCities().size() ; k++ ){
