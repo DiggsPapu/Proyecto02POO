@@ -13,7 +13,6 @@ public class Main {
 	 * Es el main
 	 * @param args
 	 */
-	//C:\Users\Windows 10\Documents\UVG\CODING\Algoritmos y estructuras de datos\HDT\HDT10\Others\guategrafo.txt
 	// C:\Users\Windows 10\Documents\UVG\CODING\Semestre 4\POO\Proyectos\Proyecto2\Others\Rutas2.txt
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
