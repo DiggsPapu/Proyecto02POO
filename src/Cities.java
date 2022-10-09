@@ -152,9 +152,9 @@ public class Cities {
 	    for (int k = 0; k < nV; k++) {
 	      for (int i = 0; i < nV; i++) {
 	        for (int j = 0; j < nV; j++) {
-	          if (this.adyacency[i][k] + this.adyacency[k][j] < this.adyacency[i][j]) {
-	            this.adyacency[i][j] = this.adyacency[i][k] + this.adyacency[k][j];
-	          	this.routes[i][j] = k ; // Esto es para agregar la matriz de rutas
+	          if (getAdyacency()[i][k] + getAdyacency()[k][j] < getAdyacency()[i][j]) {
+	            getAdyacency()[i][j] = getAdyacency()[i][k] + getAdyacency()[k][j];
+	          	getRoutes()[i][j] = k ; // Esto es para agregar la matriz de rutas
 	          }
 	        }
 	      }
@@ -203,7 +203,7 @@ public class Cities {
 			  floydWarshall();
 		  }
 		  else if ( id1 != null && id2 != null && espera == null  ) {
-			  this.adyacency[id1][id2] = 1000000000 ;
+			  this.getAdyacency()[id1][id2] = 1000000000 ;
 			  this.adyacency[id2][id1] = 1000000000 ; // Infinito entre ellos
 			  floydWarshall();
 		  }
