@@ -8,6 +8,21 @@ public class Cities {
 	private Integer adyacency[][], routes[][], original[][], originalRoutes[][];
 	private ArrayList<String> cities = new ArrayList<>();
 	private final static int INF = 9999, nV = 32;
+	public Integer[][] getAdyacency() {
+		return adyacency;
+	}
+	public static int getInf() {
+		return INF;
+	}
+	public static int getNv() {
+		return nV;
+	}
+	public Integer[][] getOriginalRoutes() {
+		return originalRoutes;
+	}
+	public Integer[][] getRoutes() {
+		return routes;
+	}
 	/**
 	 * Es la clase constructora de ciudadess
 	 * @param adyacency
@@ -229,20 +244,20 @@ public class Cities {
 			  return (city1+"->"+city2+"->"+0+"\n");
 		  }
 		  else if (getCity(city1)!=null && getCity(city2)!=null){
-			  ArrayList<String>  ruta = new ArrayList<>() ;
-			  Integer id1 = getCity(city1) ;
-			  Integer id2 = getCity(city2) ;
-			  Integer de = this.routes[id1][id2] ;
-			  ruta.add(city2) ;
-			  ruta.add(this.cities.get(de));
-			  while (de != this.routes[id1][de] ) {
-				  de = this.routes[id1][de] ;
-				  ruta.add(this.cities.get(de)) ;
-			  }
-			  ruta.add(city1) ;
-			  for (int k = ruta.size()-1  ; k >= 0 ; k -- ) {
-				  return( ruta.get(k) + "->" );
-			  }
+			ArrayList<String>  ruta = new ArrayList<>() ;
+			Integer id1 = getCity(city1) ;
+			Integer id2 = getCity(city2) ;
+			Integer de = this.routes[id1][id2] ;
+			ruta.add(city2) ;
+			ruta.add(this.cities.get(de));
+			while (de != this.routes[id1][de] ) {
+				de = this.routes[id1][de] ;
+				ruta.add(this.cities.get(de)) ;
+			}
+			ruta.add(city1) ;
+			for (int k = ruta.size()-1  ; k >= 0 ; k -- ) {
+				System.out.print( ruta.get(k) + "->" );
+			}
 			  return(this.adyacency[id1][id2]+"\n");
 		  }else {
 			  return("Alguna de las ciudades ingresadas no existe\n");
