@@ -183,8 +183,8 @@ public class Cities {
 	   * @return
 	   */
 	  private Integer getCity(String city) {
-	    	if (cities.indexOf(city)!=-1) {
-	    		return cities.indexOf(city);
+	    	if (getCities().indexOf(city)!=-1) {
+	    		return getCities().indexOf(city);
 	    	}
 	    	return null;
 	    }
@@ -219,9 +219,9 @@ public class Cities {
 	  public String getCenter() {
 		  ArrayList<Integer> maxValue = new ArrayList<>();
 		  ArrayList<Integer> maxId = new ArrayList<>();
-		  for ( int k = 0 ; k < this.cities.size() ; k++ ) {
+		  for ( int k = 0 ; k < getCities().size() ; k++ ) {
 			  ArrayList<Integer> valores = new ArrayList<>();
-			  for ( int i = 0 ; i < this.cities.size() ; i++ ) {
+			  for ( int i = 0 ; i < getCities().size() ; i++ ) {
 				  valores.add(getAdyacency()[i][k]) ; //Se add cada valor de la columna
 			  }
 			  maxValue.add(Collections.max(valores)) ; // Se add el value max de la columna
@@ -229,7 +229,7 @@ public class Cities {
 		  }
 		  for ( int k = 0 ; k < maxValue.size() ; k ++ ) {
 			  if ( maxValue.get(k) == Collections.min(maxValue) ) {
-				  return this.cities.get(maxId.get(k))  ; //Retorna el nombre de la ciudad que es centro
+				  return getCities().get(maxId.get(k))  ; //Retorna el nombre de la ciudad que es centro
 			  }
 		  }
 		  return null;
@@ -249,10 +249,10 @@ public class Cities {
 			Integer id2 = getCity(city2) ;
 			Integer de = this.routes[id1][id2] ;
 			ruta.add(city2) ;
-			ruta.add(this.cities.get(de));
+			ruta.add(getCities().get(de));
 			while (de != this.routes[id1][de] ) {
 				de = this.routes[id1][de] ;
-				ruta.add(this.cities.get(de)) ;
+				ruta.add(getCities().get(de)) ;
 			}
 			ruta.add(city1) ;
 			for (int k = ruta.size()-1  ; k >= 0 ; k -- ) {
