@@ -17,3 +17,5 @@ Branch Diego es donde trabaja Diego Andrés Alonzo Medinilla carné 20172 su par
 
 Branch Edwin es donde trabaja Edwin.
 
+Branch Augusto para Augusto 20717 parte login usuario.
+
