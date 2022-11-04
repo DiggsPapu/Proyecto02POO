@@ -19,4 +19,7 @@ public class Brain {
     public ArrayList<Vehicle> getVehicles() {
         return vehicles;
     }
+    // Crear persistencia de datos de usuarios
+    // Crear funciones de aniadir usuarios
+    // Crear funciones de modificar usuarios
 }

@@ -2,7 +2,7 @@ public class Admin implements User {
     private int id;
     private String name;
     private int age;
-    private Vehicle vehicle;
+    private int plate;
     private String password ;
     public String getPassword() {
         return password;
@@ -26,9 +26,9 @@ public class Admin implements User {
     }
 
     @Override
-    public Vehicle getVehicle() {
+    public int getPlate() {
         // TODO Auto-generated method stub
-        return vehicle;
+        return plate;
     }
     
 }
