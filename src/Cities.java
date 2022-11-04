@@ -260,4 +260,40 @@ public class Cities {
 	public Integer[][] getOriginal() {
 		return original;
 	}
+	public ArrayList<String> getRouteArrayList(String city1, String city2) {
+		ArrayList<String> route = new ArrayList<>();
+		if (city1.equals(city2)) {
+			route.add(city1);
+			route.add("0");
+			route.add(city2);
+			return (route);
+		}
+		else if (getCity(city1)!=null && getCity(city2)!=null){
+		  Integer id1 = getCity(city1) ;
+		  Integer id2 = getCity(city2) ;
+		  Integer de = this.routes[id1][id2] ;
+		  route.add(city2) ;
+		  route.add(getCities().get(de));
+		  while (de != this.routes[id1][de] ) {
+			  de = this.routes[id1][de] ;
+			  route.add(getCities().get(de)) ;
+		  }
+		  route.add(city1) ;
+		  route.add(String.valueOf(getAdyacency()[id1][id2]));
+		  return route;
+		}else {
+			return(null);
+		}
+	}
+	public String distance(ArrayList<String> des){
+		int distance = 0;
+		String all = "\n";
+		for (int k = 0 ; k < des.size()-2 ; k ++){
+			int id1 = getCity(des.get(k));
+			int id2 = getCity(des.get(k+1));
+			all += des.get(k)+"->"+getAdyacency()[id1][id2]+"->";
+			distance += getAdyacency()[id1][id2];
+		}
+		return all+"\nDistancia total: "+String.valueOf(distance);
+	}
 }

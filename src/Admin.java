@@ -3,6 +3,10 @@ public class Admin implements User {
     private String name;
     private int age;
     private Vehicle vehicle;
+    private String password ;
+    public String getPassword() {
+        return password;
+    }
     @Override
     public int getId() {
         // TODO Auto-generated method stub
