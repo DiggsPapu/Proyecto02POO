@@ -1,8 +1,8 @@
 public class Vehicle {
-    private int license_plate;
+    private String license_plate;
     private String vehicle_type;
     private String gas_type;
-    public int getLicensePlate() {
+    public String getLicensePlate() {
         return license_plate;
     }
     public String getVehicleType() {

@@ -19,6 +19,20 @@ public class Brain {
     public ArrayList<Vehicle> getVehicles() {
         return vehicles;
     }
+    public User logIn(int id, String passwrod){
+        for (int k = 0 ; k < users.size() ; k++ ){
+            if (users.get(k).getId()== id && users.get(k).getPassword().equals(passwrod)){
+                return users.get(k);
+            } 
+        }
+        return null;
+    }
+    public void createUser(User user){
+        users.add(user);
+    }
+    public int getNewId(){
+        return users.size();
+    }
     // Crear persistencia de datos de usuarios
     // Crear funciones de aniadir usuarios
     // Crear funciones de modificar usuarios
