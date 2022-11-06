@@ -285,15 +285,33 @@ public class Cities {
 			return(null);
 		}
 	}
-	public String distance(ArrayList<String> des){
+	public String routeAndDistance(ArrayList<String> des){
 		int distance = 0;
-		String all = "\n";
+		String all = "";
 		for (int k = 0 ; k < des.size()-2 ; k ++){
 			int id1 = getCity(des.get(k));
 			int id2 = getCity(des.get(k+1));
 			all += des.get(k)+"->"+getAdyacency()[id1][id2]+"->";
 			distance += getAdyacency()[id1][id2];
 		}
-		return all+"\nDistancia total: "+String.valueOf(distance);
+		all+=des.get(des.size()-1);
+		return all+"\nDistancia total: "+String.valueOf(distance)+"\n";
+	}
+	public int distance(ArrayList<String> des){
+		int distance = 0;
+		for (int k = 0 ; k < des.size()-2 ; k ++){
+			int id1 = getCity(des.get(k));
+			int id2 = getCity(des.get(k+1));
+			distance += getAdyacency()[id1][id2];
+		}
+		return (distance);
+	}
+	public void printMatrix(Integer[][] Matrix){
+		for (int k = 0 ; k < Matrix.length ; k++ ){
+			for (int j = 0 ; j < Matrix[k].length ; j++){
+				System.out.print(String.valueOf(Matrix[k][j])+"     ");
+			}
+			System.out.print("\n");
+		}
 	}
 }

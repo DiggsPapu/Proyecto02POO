@@ -21,21 +21,7 @@ public class Main {
 	}
 	public static void printCities(){
 		for (int k = 0 ; k < brain.getCities().getCities().size() ; k ++){
-			System.out.println(String.valueOf(k)+"- "+brain.getCities().getCities().get(k));
-		}
-	}
-	public static void printPrincipalMenu(){
-		System.out.println("Ingresa una opcion de las siguientes:\n1- Ingreso de usuario\n2- Informacion del impacto del CO2\n3- Creacion de usuario\n4- Salir");
-	}
-	public static void userMenu(User user){
-		if (user != null && user.getClass() == UserNormal.class ){
-			System.out.println("Bienvenido al portal usuario "+user.getName());
-		}
-		else if (user != null && user.getClass() == Admin.class ){
-			System.out.println("Bienvenido al portal administrador"+ user.getName());
-		}
-		else{
-			System.out.println("El usuario/contrasenia ingresada es invalido");
+			System.out.println("Ciudad: "+brain.getCities().getCities().get(k));
 		}
 	}
 	public static int enterInteger(){
@@ -50,20 +36,176 @@ public class Main {
 			}
 		}
 	}
-	public static void createUser(){
+	private static String checkCity(){
+		while (true){
+			printCities();
+			System.out.print("Ingrese la ciudad: ");
+			String city = scan.nextLine();
+			if (brain.getCities().getCities().contains(city)){
+				return city;
+			}
+			else{
+				System.out.println("Ingrese una ciudad valida");
+			}
+		}
+	}
+	private static ArrayList<String> enterRoute(){
+		ArrayList<String> route = new ArrayList<>();
+		while (true){
+			printCities();
+			route.add(checkCity());
+			System.out.print("Ya termino de ingresar la ruta? (s): ");
+			if (scan.nextLine().equals("s")){
+				return route;
+			}
+		}
+	}
+	private static void createUser(){
+		int identifier = brain.getNewId();
+		System.out.println("El id es: "+String.valueOf(identifier));
 		System.out.print("Ingresa el nombre: ");
 		String name = scan.nextLine();
 		System.out.print("Ingresa el password: ");
 		String contra = scan.nextLine();
 		System.out.print("Ingresa la edad: ");
 		int edad = enterInteger();
-		System.out.print("Ingresa la placa del auto: ");
-		String plate = scan.nextLine();
-		int identifier = brain.getNewId();
-		System.out.println("El id es: "+String.valueOf(identifier));
-		User user = new UserNormal(identifier, name, edad, plate, contra);
+		Vehicle vehicle = createVehicle(identifier);
+		brain.createVehicle(vehicle);
+		User user = new UserNormal(identifier, name, edad, contra, enterRoute());
 		brain.createUser(user);
 		System.out.println("El usuario fue correctamente creado");
+	}
+	private static int getValidId(){
+		while (true){
+			System.out.println("Ingresa el id de usuario: ");
+			try {
+				return brain.getUsers().get(enterInteger()).getId();
+			} catch (Exception e) {
+				// TODO: handle exception
+				System.out.println("No existe el usuario ingresado");
+			}
+				
+		}
+	}
+	private static void changeUser(){
+		boolean keepInChanges = true;
+		int id = getValidId();
+		while (keepInChanges){
+			System.out.println("Selecciona que atributo modificaras:\n1- Nombre\n2- Edad\n3- Contrasenia\n4- Salir");
+			switch (scan.nextLine()) {
+				case "1":
+				System.out.println("Ingresa el nuevo nombre:");
+				brain.getUsers().get(id).setName(scan.nextLine());
+				break;
+				case "2":
+				System.out.println("Ingresa la nueva edad:");
+				brain.getUsers().get(id).setAge(enterInteger());
+				break;
+				case "3":
+				System.out.println("Ingresa la nueva contrasenia:");
+				brain.getUsers().get(id).setPassword(scan.nextLine());
+				break;
+				case "4":
+				keepInChanges = false;
+				break;
+				default:
+				break;
+			}
+		}
+	}
+	private static void changeVehicle(User user){
+		boolean keepInChanges = true;
+		Vehicle vehicle = brain.searchVehicle(user);
+		while (keepInChanges && vehicle!= null){
+			System.out.println("Selecciona entre las siguientes opciones\n1- Cambiar el tipo de vehiculo\n2- Cambiar el tipo de combustible\n4- Salir");
+			switch (scan.nextLine()) {
+				case "1":
+					System.out.print("Ingrese el tipo de vehiculo que es:  ");
+					vehicle.setVehicle_type(scan.nextLine());
+					break;
+				case "2":
+					System.out.print("Ingrese el tipo de combustible que usa:  ");
+					vehicle.setGas_type(scan.nextLine());
+					break;
+				case "3":
+				keepInChanges = false;
+				break;
+				default:
+				System.out.println("La opcion ingresada no es valida");
+					break;
+			}
+		}
+	}
+	private static void adminMenu(User user){
+		boolean keepInMenu = true;
+		while (keepInMenu){
+			System.out.println("Selecciona entre estas opciones:\n1- Crear un nuevo usuario\n2- Modificar un usuario\n3- Modificar un vehiculo\n4- Salir\n");
+			switch (scan.nextLine()) {
+				case "1":
+				createUser();
+				break;
+				case "2":
+				changeUser();
+				break;
+				case "3":
+				User usuario = brain.getUsers().get(getValidId());
+				changeVehicle(usuario);
+				break;
+				case "4":
+				keepInMenu = false;
+				break;
+				default:System.out.println("La opcion ingresada es invalida");
+				break;
+			}
+		}
+	}
+	private static String enterGas(){
+		while (true){
+			System.out.print("Tipo de combustible?\n1- Gasolina\n2- Diesel\n");
+			switch (scan.nextLine()) {
+				case "1":
+				return "Gasolina";
+				case "2":
+				return "Diesel";
+				default:
+					break;
+			}			
+		}
+	}
+	private static Vehicle createVehicle(int id){
+		System.out.print("Ingrese la placa del auto: ");
+		String plate = scan.nextLine();
+		System.out.print("Ingrese el tipo de vehiculo: ");
+		String type = scan.nextLine();
+		Vehicle vehicle = new Vehicle(id, plate, type, enterGas());
+		return vehicle;
+	}
+	private static void userMenu(User user){
+		boolean keepInMenu = true;
+		UserNormal usern = (UserNormal) user;
+		while (keepInMenu){
+			System.out.println("Selecciona entre las siguientes opciones:\n1- Mi dioxido de carbono\n2- Mi ruta optima\n3- Mi carro optimo\n4- Salir");
+			switch (scan.nextLine()){
+				case "1":
+				System.out.println("Esta opcion te despliega cuanto dioxido de carbono produces basado en el consumo que realizas\n");
+				System.out.println(brain.myCO2(user));;
+				break;
+				case "2":
+				System.out.println("Esta opcion despliega la ruta optima\n");
+				System.out.println(brain.getCities().routeAndDistance(brain.getRoute(usern.getRuta().get(0), usern.getRuta().get(usern.getRuta().size()-1))));
+				break;
+				case "3":
+				System.out.println("Esta opcion despliega el carro optimo para la ruta ingresada\n");
+				System.out.println(brain.getOptimusCar(usern));
+				break;
+				case "4":
+				keepInMenu = false;
+				break;
+				default:
+				System.out.println("La opcion ingresada es invalida");
+				break;
+			}
+		}
 	}
 	/**
 	 * Es el main
@@ -74,7 +216,7 @@ public class Main {
 		// TODO Auto-generated method stub
 		boolean keepInApp = true;
 		while (keepInApp) {
-			printPrincipalMenu();
+			System.out.println("Ingresa una opcion de las siguientes:\n1- Ingreso de usuario\n2- Informacion del impacto del CO2\n3- Creacion de usuario\n4- Salir");
 			String option = scan.nextLine();
 			switch(option){
 				case "1":
@@ -82,7 +224,18 @@ public class Main {
 				int id = enterInteger();
 				System.out.println("Ingresa el password del usuario de usuario:");
 				String password = scan.nextLine();
-				userMenu(brain.logIn(id, password));
+				User user = brain.logIn(id, password);
+				if (user != null && user.getClass() == UserNormal.class ){
+					System.out.println("Bienvenido al portal usuario "+user.getName());
+					userMenu((UserNormal) user);
+				}
+				else if (user != null && user.getClass() == Admin.class ){
+					System.out.println("Bienvenido al portal administrador"+ user.getName());
+					adminMenu((Admin) user);
+				}
+				else{
+					System.out.println("El usuario/contrasenia ingresada es invalido");
+				}
 				break;
 				case "2":
 				break;
