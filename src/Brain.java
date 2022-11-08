@@ -156,33 +156,21 @@ public class Brain {
 				pLB.readLine();
 				while ((line = pLB.readLine())!=null){
 					String [] pL = line.split(",");
-					System.out.println("Normal user");
-					System.out.println(pL[pL.length-1]);
 					if (!pL[pL.length-1].equals("None")){
-						System.out.println("Route");
 						String [] route = pL[pL.length-1].split(" ");
-						System.out.println(route[0]);
 						ArrayList<String> ruta = new ArrayList<>();
 						for (int k = 0 ; k < route.length ; k++ ){
 							ruta.add(route[k]);
-							System.out.println("ruta: "+route[k]);
 						}
 						int id = Integer.parseInt(pL[0]);
 						String name = pL[1];
 						int age = Integer.parseInt(pL[2]);
 						String password = pL[3];
 						// "id,name,age,password,route"
-						System.out.println("Create normal user");
-						System.out.println(id);
-						System.out.println(name);
-						System.out.println(age);
-						System.out.println(password);
-						System.out.println(ruta);
 						User newPL = (User) new UserNormal(id,name,age,password,ruta);
 						this.users.add(newPL);
 					}
 					else{
-						System.out.println("Admin");
 						User newPL = (User) new Admin(Integer.parseInt(pL[0]),pL[1],Integer.parseInt(pL[2]),pL[3]);
 						this.users.add(newPL);
 					}
@@ -196,16 +184,16 @@ public class Brain {
 				}
 				pLB.close();
 				pSB.close();
-				return ("The db was succesfully loaded\n");
+				return ("La base de datos fue correctamente cargada\n");
 				
 			}
 			else {
-				return ("There is no data yet\n");
+				return ("Aun no hay datos\n");
 			}
 			
 		}
 		catch(Exception e) {
-			return ("The data base couldn't be loaded\n");
+			return ("La base de datos no pudo ser cargada\n");
 		}
 	}
 }
