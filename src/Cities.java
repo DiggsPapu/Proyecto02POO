@@ -8,18 +8,28 @@ public class Cities {
 	private Integer adyacency[][], routes[][], original[][], originalRoutes[][];
 	private ArrayList<String> cities = new ArrayList<>();
 	private final static int INF = 9999, nV = 32;
+	/**
+	Method to get the adyacency matrix
+	 */
 	public Integer[][] getAdyacency() {
 		return adyacency;
 	}
+	/**
+	Method to get the infinite value */
 	public static int getInf() {
 		return INF;
 	}
+	/**
+	Method to get the new */
 	public static int getNv() {
 		return nV;
 	}
+	/**
+	Method to get the original routes in the matrix */
 	public Integer[][] getOriginalRoutes() {
 		return originalRoutes;
 	}
+	/**Method to get the routes */
 	public Integer[][] getRoutes() {
 		return routes;
 	}
