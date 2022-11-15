@@ -8,18 +8,28 @@ public class Cities {
 	private Integer adyacency[][], routes[][], original[][], originalRoutes[][];
 	private ArrayList<String> cities = new ArrayList<>();
 	private final static int INF = 9999, nV = 32;
+	/**
+	Method to get the adyacency matrix
+	 */
 	public Integer[][] getAdyacency() {
 		return adyacency;
 	}
+	/**
+	Method to get the infinite value */
 	public static int getInf() {
 		return INF;
 	}
+	/**
+	Method to get the new */
 	public static int getNv() {
 		return nV;
 	}
+	/**
+	Method to get the original routes in the matrix */
 	public Integer[][] getOriginalRoutes() {
 		return originalRoutes;
 	}
+	/**Method to get the routes */
 	public Integer[][] getRoutes() {
 		return routes;
 	}
@@ -285,6 +295,10 @@ public class Cities {
 			return(null);
 		}
 	}
+	/**
+	 * Es para retornar la distancia total entre ciudades
+	 * @return string
+	 */
 	public String routeAndDistance(ArrayList<String> des){
 		int distance = 0;
 		String all = "";
@@ -297,6 +311,11 @@ public class Cities {
 		all+=des.get(des.size()-1);
 		return all+"\nDistancia total: "+String.valueOf(distance)+"\n";
 	}
+
+	/**
+	 * Es para retornar la distancia entre ciudadades
+	 * @return distance
+	 */
 	public int distance(ArrayList<String> des){
 		int distance = 0;
 		for (int k = 0 ; k < des.size()-2 ; k ++){
@@ -306,6 +325,10 @@ public class Cities {
 		}
 		return (distance);
 	}
+
+	/**
+	 * Imprime los valores actuales presentes
+	 */
 	public void printMatrix(Integer[][] Matrix){
 		for (int k = 0 ; k < Matrix.length ; k++ ){
 			for (int j = 0 ; j < Matrix[k].length ; j++){

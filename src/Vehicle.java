@@ -9,6 +9,10 @@ public class Vehicle {
         this.vehicle_type = vehicle_type;
         this.gas_type = gas_type;
     }
+
+    /**
+     * setters y getters de las propiedades de la clase vehicle
+     */
     public int getId() {
         return id;
     }

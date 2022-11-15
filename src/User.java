@@ -1,3 +1,6 @@
+/**
+ * Clase padre usuario con caracteristicas iniciales.
+ */
 public interface User {
     public int getId();
     public String getName();
