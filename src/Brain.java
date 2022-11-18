@@ -237,6 +237,7 @@ public class Brain {
 			return ("La base de datos no pudo ser cargada\n");
 		}
 	}
+	
 }
     // Crear persistencia de datos de usuarios
     // Crear funciones de aniadir usuarios

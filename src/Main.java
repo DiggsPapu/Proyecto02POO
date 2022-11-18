@@ -283,7 +283,7 @@ public class Main {
 					userMenu((UserNormal) user);
 				}
 				else if (user != null && user.getClass() == Admin.class ){
-					System.out.println("Bienvenido al portal administrador"+ user.getName());
+					System.out.println("Bienvenido al portal administrador "+ user.getName());
 					adminMenu((Admin) user);
 				}
 				else{
