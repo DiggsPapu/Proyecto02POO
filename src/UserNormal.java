@@ -13,6 +13,9 @@ public class UserNormal implements User{
         this.password = password;
         this.ruta = ruta;
     }
+    /**
+     * Metodos retornadores de rutas, id, nombre, edad, contrasenia, setters y getters.
+     */
     public ArrayList<String> getRuta() {
         return ruta;
     }

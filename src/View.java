@@ -21,6 +21,10 @@ public class View {
 	      System.out.println();
 	    }
 	  }
+	/**
+	 * Esta es la parte parte de despliegue de opciones
+	 * @return opcion
+	 */
       public static String getOption(){
         System.out.print("Seleccione una opcion:\n1-Buscar la ruta mas corta entre ciudades\n2-Ciudad mas centralizada\n3-Actualizar la conexion entre dos ciudades\n4-Indicar si hay interrupcion entre ciudades\n5-Salir\n") ;
 		String opcion = scan.nextLine() ;

@@ -13,6 +13,12 @@ public class Brain {
     public ArrayList<String> getRoute(String city1, String city2){
         return cities.getRouteArrayList(city1, city2);
     }
+
+
+
+	/**
+	 * Getters y setters de usuarios, como rutas, ciidades y vehiculos.
+	 */
     public String getDistance(ArrayList<String> route){
         return cities.routeAndDistance(route);
     }
@@ -25,6 +31,12 @@ public class Brain {
     public ArrayList<Vehicle> getVehicles() {
         return vehicles;
     }
+
+	/**
+	 * Metodo para login de usuario
+	 * @param id, password
+	 * @return string
+	 */
     public User logIn(int id, String passwrod){
         for (int k = 0 ; k < users.size() ; k++ ){
             if (users.get(k).getId()== id && users.get(k).getPassword().equals(passwrod)){
@@ -33,15 +45,35 @@ public class Brain {
         }
         return null;
     }
+	/**
+	 * Metodo para crear vehiculo y agregarlo a los objetos
+	 * @param vehicle
+	 */
+
     public void createVehicle(Vehicle vehicle){
         vehicles.add(vehicle);
     }
+	/**
+	 * Metodo para crear usuarios
+	 * @param user
+	 */
     public void createUser(User user){
         users.add(user);
     }
+
+	/**
+	 * Metodo para obtener el id y regresar size de usuarios.
+	 * @param user
+	 */
     public int getNewId(){
         return users.size();
     }
+
+	/**
+	 * Metodo para la busqueda de vehiculos en los usuarios
+	 * @param user
+	 * @return string--null
+	 */
     public Vehicle searchVehicle(User user){
         for (int k = 0 ; k < vehicles.size() ; k ++ ){
             if (vehicles.get(k).getId() == user.getId()){
@@ -49,7 +81,16 @@ public class Brain {
             }
         }
         return null;
+
+
     }
+
+	/**
+	 * Metodo para procesar los niveles de CO2 presentes por los usuarios
+	 * @param user
+	 * @return string
+	 */
+
     public String myCO2(User user){
         Vehicle vehicle = searchVehicle(user);
         UserNormal usern = (UserNormal) user;
@@ -200,4 +241,3 @@ public class Brain {
     // Crear persistencia de datos de usuarios
     // Crear funciones de aniadir usuarios
     // Crear funciones de modificar usuarios
-
