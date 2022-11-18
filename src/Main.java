@@ -116,35 +116,6 @@ public class Main {
 		}
 	}
 	/**
-	 * Metodo para cambiar de usuario
-	 */
-	private static void changeUser(){
-		boolean keepInChanges = true;
-		int id = getValidId();
-		while (keepInChanges){
-			System.out.println("Selecciona que atributo modificaras:\n1- Nombre\n2- Edad\n3- Contrasenia\n4- Salir");
-			switch (scan.nextLine()) {
-				case "1":
-				System.out.println("Ingresa el nuevo nombre:");
-				brain.getUsers().get(id).setName(scan.nextLine());
-				break;
-				case "2":
-				System.out.println("Ingresa la nueva edad:");
-				brain.getUsers().get(id).setAge(enterInteger());
-				break;
-				case "3":
-				System.out.println("Ingresa la nueva contrasenia:");
-				brain.getUsers().get(id).setPassword(scan.nextLine());
-				break;
-				case "4":
-				keepInChanges = false;
-				break;
-				default:
-				break;
-			}
-		}
-	}
-	/**
 	 * Metodo para cambiar de vehiculo
 	 * @param user
 	 */
@@ -184,7 +155,7 @@ public class Main {
 				createUser();
 				break;
 				case "2":
-				changeUser();
+				changeUser(getValidId());
 				break;
 				case "3":
 				User usuario = brain.getUsers().get(getValidId());
@@ -272,6 +243,10 @@ public class Main {
 			}
 		}
 	}
+	
+	/**
+	 * Metodo para cambiar de usuario
+	 */
 	private static void changeUser(int id){
 		boolean keepInChanges = true;
 		while (keepInChanges){
