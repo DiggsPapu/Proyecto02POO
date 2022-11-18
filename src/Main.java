@@ -152,7 +152,7 @@ public class Main {
 		boolean keepInChanges = true;
 		Vehicle vehicle = brain.searchVehicle(user);
 		while (keepInChanges && vehicle!= null){
-			System.out.println("Selecciona entre las siguientes opciones\n1- Cambiar el tipo de vehiculo\n2- Cambiar el tipo de combustible\n4- Salir");
+			System.out.println("Selecciona entre las siguientes opciones\n1- Cambiar el tipo de vehiculo\n2- Cambiar el tipo de combustible\n3- Salir");
 			switch (scan.nextLine()) {
 				case "1":
 					System.out.print("Ingrese el tipo de vehiculo que es:  ");
@@ -244,7 +244,14 @@ public class Main {
 				break;
 				case "2":
 				System.out.println("Esta opcion despliega la ruta optima\n");
-				System.out.println(brain.getCities().routeAndDistance(brain.getRoute(usern.getRuta().get(0), usern.getRuta().get(usern.getRuta().size()-1))));
+				
+				ArrayList<String> optimusroute = (brain.getRoute(usern.getRuta().get(0), usern.getRuta().get(usern.getRuta().size()-1)));
+				for (int u = 0 ; u < optimusroute.size()-1 ; u++){
+					System.out.print(optimusroute.get(u));
+					System.out.print("->");
+				}
+				System.out.print(optimusroute.get(optimusroute.size()-1));
+				System.out.println("\nLa distancia recorrida es de: "+String.valueOf(citi.distance(optimusroute)));
 				break;
 				case "3":
 				System.out.println("Esta opcion despliega el carro optimo para la ruta ingresada\n");

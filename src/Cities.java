@@ -301,7 +301,7 @@ public class Cities {
 	public String routeAndDistance(ArrayList<String> des){
 		int distance = 0;
 		String all = "";
-		for (int k = 0 ; k < des.size()-2 ; k ++){
+		for (int k = 0 ; k < des.size()-1 ; k ++){
 			int id1 = getCity(des.get(k));
 			int id2 = getCity(des.get(k+1));
 			all += des.get(k)+"->"+getAdyacency()[id1][id2]+"->";
@@ -317,13 +317,12 @@ public class Cities {
 	public int distanciaentera(ArrayList<String> des){
 		int distance = 0;
 		String all = "";
-		for (int k = 0 ; k < des.size()-2 ; k ++){
+		for (int k = 0 ; k < des.size()-1 ; k ++){
 			int id1 = getCity(des.get(k));
 			int id2 = getCity(des.get(k+1));
 			all += des.get(k)+"->"+getAdyacency()[id1][id2]+"->";
 			distance += getAdyacency()[id1][id2];
 		}
-		all+=des.get(des.size()-1);
 		return (distance);
 	}
 	/**
