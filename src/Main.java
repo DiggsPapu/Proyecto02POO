@@ -236,7 +236,7 @@ public class Main {
 		boolean keepInMenu = true;
 		UserNormal usern = (UserNormal) user;
 		while (keepInMenu){
-			System.out.println("Selecciona entre las siguientes opciones:\n1- Mi dioxido de carbono\n2- Mi ruta optima\n3- Mi carro optimo\n4- Salir");
+			System.out.println("Selecciona entre las siguientes opciones:\n1- Mi dioxido de carbono\n2- Mi ruta optima\n3- Mi carro optimo\n4- Chequear tu perfil\n5- Cambiar tu perfil\n6- Salir");
 			switch (scan.nextLine()){
 				case "1":
 				System.out.println("Esta opcion te despliega cuanto dioxido de carbono produces basado en el consumo que realizas\n");
@@ -258,10 +258,41 @@ public class Main {
 				System.out.println(brain.getOptimusCar(usern));
 				break;
 				case "4":
+				System.out.println("Nombre: "+usern.getName()+"\nEdad: "+String.valueOf(usern.getAge())+"\nPassword: "+usern.getPassword()+"\nId: "+usern.getId()+"\n");
+				break;
+				case "5":
+				changeUser(usern.getId());
+				break;
+				case "6":
 				keepInMenu = false;
 				break;
 				default:
 				System.out.println("La opcion ingresada es invalida");
+				break;
+			}
+		}
+	}
+	private static void changeUser(int id){
+		boolean keepInChanges = true;
+		while (keepInChanges){
+			System.out.println("Selecciona que atributo modificaras:\n1- Nombre\n2- Edad\n3- Contrasenia\n4- Salir");
+			switch (scan.nextLine()) {
+				case "1":
+				System.out.println("Ingresa el nuevo nombre:");
+				brain.getUsers().get(id).setName(scan.nextLine());
+				break;
+				case "2":
+				System.out.println("Ingresa la nueva edad:");
+				brain.getUsers().get(id).setAge(enterInteger());
+				break;
+				case "3":
+				System.out.println("Ingresa la nueva contrasenia:");
+				brain.getUsers().get(id).setPassword(scan.nextLine());
+				break;
+				case "4":
+				keepInChanges = false;
+				break;
+				default:
 				break;
 			}
 		}
