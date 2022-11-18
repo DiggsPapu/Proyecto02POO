@@ -275,7 +275,7 @@ public class Main {
 	private static void changeUser(int id){
 		boolean keepInChanges = true;
 		while (keepInChanges){
-			System.out.println("Selecciona que atributo modificaras:\n1- Nombre\n2- Edad\n3- Contrasenia\n4- Salir");
+			System.out.println("Selecciona que atributo modificaras:\n1- Nombre\n2- Edad\n3- Contrasenia\n4- Cambiar la ruta\n5- Salir");
 			switch (scan.nextLine()) {
 				case "1":
 				System.out.println("Ingresa el nuevo nombre:");
@@ -290,9 +290,14 @@ public class Main {
 				brain.getUsers().get(id).setPassword(scan.nextLine());
 				break;
 				case "4":
+				UserNormal usern = (UserNormal) brain.getUsers().get(id);
+				usern.setRuta(enterRoute());
+				brain.getUsers().set(id, usern);
+				case "5":
 				keepInChanges = false;
 				break;
 				default:
+				System.out.println("Ingrese un valor valido.");
 				break;
 			}
 		}
