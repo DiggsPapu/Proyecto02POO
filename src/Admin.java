@@ -9,6 +9,9 @@ public class Admin implements User {
         this.age = age;
         this.password = password;
     }
+    /**
+     * Metodos de getters y setters
+     */
     @Override
     public int getId() {
         // TODO Auto-generated method stub
