@@ -50,7 +50,7 @@ public class UserNormal implements User{
     @Override
     public void setName(String name) {
         // TODO Auto-generated method stub
-        
+        this.name = name;
     }
     @Override
     public void setAge(int age) {
