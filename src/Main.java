@@ -7,9 +7,16 @@ import java.util.Scanner;
  * @author Diego Alonzo 20172
  */
 public class Main {
+	/**
+	 * Atributos estaticos del main
+	 */
 	public static Scanner scan = new Scanner(System.in);
 	public static Cities citi = new Cities();
 	public static Brain brain =  new Brain();
+	/**
+	 * Metodo para imprimir rutas
+	 * @param route
+	 */
 		public static void printRoute(ArrayList<String> route){
 		if (route== null){
 			System.out.println("No existe alguna de las ciudades ingresadas\n");
@@ -18,11 +25,18 @@ public class Main {
 			System.out.println(String.valueOf(brain.getDistance(route)));
 		}
 	}
+	/**
+	 * Metodo para imprimir ciudades
+	 */
 	public static void printCities(){
 		for (int k = 0 ; k < brain.getCities().getCities().size() ; k ++){
 			System.out.println("Ciudad: "+brain.getCities().getCities().get(k));
 		}
 	}
+	/**
+	 * Metodo para ingresar enteros
+	 * @return
+	 */
 	public static int enterInteger(){
 		while (true){
 			try {
@@ -35,6 +49,10 @@ public class Main {
 			}
 		}
 	}
+	/**
+	 * Metodo para chequear ciudades
+	 * @return
+	 */
 	private static String checkCity(){
 		while (true){
 			printCities();
@@ -48,6 +66,10 @@ public class Main {
 			}
 		}
 	}
+	/**
+	 * Metodo para ingresar rutas
+	 * @return
+	 */
 	private static ArrayList<String> enterRoute(){
 		ArrayList<String> route = new ArrayList<>();
 		while (true){
@@ -59,6 +81,9 @@ public class Main {
 			}
 		}
 	}
+	/**
+	 * Metodo para crear usuarios
+	 */
 	private static void createUser(){
 		int identifier = brain.getNewId();
 		System.out.println("El id es: "+String.valueOf(identifier));
@@ -74,6 +99,10 @@ public class Main {
 		brain.createUser(user);
 		System.out.println("El usuario fue correctamente creado");
 	}
+	/**
+	 * Metodo para ingresar un id valido al momento de loggearse 
+	 * @return
+	 */
 	private static int getValidId(){
 		while (true){
 			System.out.println("Ingresa el id de usuario: ");
@@ -86,6 +115,9 @@ public class Main {
 				
 		}
 	}
+	/**
+	 * Metodo para cambiar de usuario
+	 */
 	private static void changeUser(){
 		boolean keepInChanges = true;
 		int id = getValidId();
@@ -112,6 +144,10 @@ public class Main {
 			}
 		}
 	}
+	/**
+	 * Metodo para cambiar de vehiculo
+	 * @param user
+	 */
 	private static void changeVehicle(User user){
 		boolean keepInChanges = true;
 		Vehicle vehicle = brain.searchVehicle(user);
@@ -135,6 +171,10 @@ public class Main {
 			}
 		}
 	}
+	/**
+	 * Metodo para ingresar el menu de administrador
+	 * @param user
+	 */
 	private static void adminMenu(User user){
 		boolean keepInMenu = true;
 		while (keepInMenu){
@@ -158,6 +198,10 @@ public class Main {
 			}
 		}
 	}
+	/**
+	 * Metodo para ingresar un tipo de gasolina
+	 * @return
+	 */
 	private static String enterGas(){
 		while (true){
 			System.out.print("Tipo de combustible?\n1- Gasolina\n2- Diesel\n");
@@ -171,6 +215,11 @@ public class Main {
 			}			
 		}
 	}
+	/**
+	 * Metodo para crear vehiculo
+	 * @param id
+	 * @return
+	 */
 	private static Vehicle createVehicle(int id){
 		System.out.print("Ingrese la placa del auto: ");
 		String plate = scan.nextLine();
@@ -179,6 +228,10 @@ public class Main {
 		Vehicle vehicle = new Vehicle(id, plate, type, enterGas());
 		return vehicle;
 	}
+	/**
+	 * Metodo para imprimir el menu de usuario
+	 * @param user
+	 */
 	private static void userMenu(User user){
 		boolean keepInMenu = true;
 		UserNormal usern = (UserNormal) user;
