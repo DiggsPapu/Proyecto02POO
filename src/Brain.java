@@ -107,7 +107,14 @@ public class Brain {
         return ("Para la ruta normal: \n"+getDistance(usern.getRuta())+"\n"+Total + " gramos de CO2 por cada kilómetro recorrido.\nEl total de gramos por el tramo es "+String.valueOf(Total*cities.distance(usern.getRuta())));
     } 
     public String getOptimusCar(UserNormal user){
-        return "";
+		int distance = cities.distanciaentera(user.getRuta());
+		if (distance > 400){
+			
+			return "Suv seria el carro ideal dado que la distancia es larga\n";
+		}
+		else {
+			return "Sedan seria el carro ideal dado que es una distancia corta\n";
+		}
     }  
     /**
 	 * Method to save the db

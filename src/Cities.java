@@ -310,7 +310,22 @@ public class Cities {
 		all+=des.get(des.size()-1);
 		return all+"\nDistancia total: "+String.valueOf(distance)+"\n";
 	}
-
+	/**
+	 * Es para retornar la distancia total entre ciudades
+	 * @return string
+	 */
+	public int distanciaentera(ArrayList<String> des){
+		int distance = 0;
+		String all = "";
+		for (int k = 0 ; k < des.size()-2 ; k ++){
+			int id1 = getCity(des.get(k));
+			int id2 = getCity(des.get(k+1));
+			all += des.get(k)+"->"+getAdyacency()[id1][id2]+"->";
+			distance += getAdyacency()[id1][id2];
+		}
+		all+=des.get(des.size()-1);
+		return (distance);
+	}
 	/**
 	 * Es para retornar la distancia entre ciudadades
 	 * @return distance
